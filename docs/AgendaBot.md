@@ -64,6 +64,7 @@ Módulo de consulta dinámica que permite al usuario visualizar sus pendientes r
 - **Always Output Data:** Configuración en nodos de lectura para garantizar que el flujo no se detenga ante resultados nulos.
 
 ---
-**Autor:** Tu Nombre y Apellido  
+**Autor:** Juan Rojas 
 **Organización:** AgendaBot Services  
 **Estatus:** Entregado - Versión 1.0.0
+
