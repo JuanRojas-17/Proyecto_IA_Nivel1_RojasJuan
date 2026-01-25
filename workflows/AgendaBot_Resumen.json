@@ -1,0 +1,124 @@
+{
+  "name": "AgendaBot_ResumenDiario",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 8
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        0,
+        0
+      ],
+      "id": "0a9ecb93-8fd9-4ec1-a66b-c9070a618ee1",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1cjcNn1JK2zCcNkwfFEzAk3iaUE2RFSu0El7AMqCzQhU/edit?usp=sharing",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "CITAS",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1cjcNn1JK2zCcNkwfFEzAk3iaUE2RFSu0El7AMqCzQhU/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "fecha",
+              "lookupValue": "={{ $now.setZone('America/Bogota').toFormat('yyyy-MM-dd') }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        256,
+        0
+      ],
+      "id": "8d675968-a168-467d-9c40-ad4edc6dac70",
+      "name": "Get row(s) in sheet",
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleApi": {
+          "id": "m7ZCjd1k5vQIft9q",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "7643565220",
+        "text": "=☀️ **¡Buen día, Juan! Aquí tienes tu agenda para hoy:**\n\n{{ $(\"Get row(s) in sheet\").all().length > 0 && $(\"Get row(s) in sheet\").first().json.id_cita ? $(\"Get row(s) in sheet\").all().map(c => \"⏰ \" + c.json.hora + \" - \" + c.json.nombre + \"\\n📝 Motivo: \" + c.json.motivo).join('\\n\\n') : \"Hoy no tienes citas agendadas. ¡Disfruta tu día libre! 😎\" }}\n\n---\n🤖 *Enviado automáticamente por AgendaBot*",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        560,
+        0
+      ],
+      "id": "391d82b6-8b76-4de3-bebf-1b0454ee57ca",
+      "name": "Send a text message",
+      "webhookId": "f90d203d-a316-47fe-9807-b25239ff3f19",
+      "credentials": {
+        "telegramApi": {
+          "id": "5bhbQw0oFPFpuBJr",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "versionId": "19fc38ff-1810-457d-a5af-a559aa6d4130",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "719c25c1905bede8dd7731792b604d918284e9dda5e5f8fadb4cf78b745a088c"
+  },
+  "id": "aD3MafX3n4q-IVA-1JCQI",
+  "tags": []
+}
