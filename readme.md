@@ -36,24 +36,7 @@ Proyecto_IA_Nivel1_ApellidoNombre/
 │   └── AgendaBot_Resumen.json   # Flujo de automatización (Resumen Diario).
 └── evidencias/              # Capturas de pantalla del bot y base de datos funcionando.
 
-└── evidencias/              # Capturas de pantalla del bot y base de datos funcionando.
-⚙️ Configuración e Instalación
-1. Requisitos Previos
-Instancia de n8n instalada (vía Desktop o Docker).
-Bot de Telegram creado mediante @BotFather.
-Una Service Account en Google Cloud Console con acceso a Google Sheets API.
-2. Base de Datos
-Cree un archivo en Google Sheets titulado AgendaBot_DB con las siguientes pestañas: CITAS, TAREAS, HABITOS, LISTAS, ITEMS_LISTA, USUARIOS, LOGS, SESSIONS. Comparta el archivo con el correo de su Service Account en modo Editor.
-3. Importación de Flujos
-Descargue los archivos .json de la carpeta workflows/.
-En n8n, cree un nuevo flujo y seleccione "Import from File".
-Vincule sus credenciales de Telegram y Google Sheets.
-4. Activación del Webhook
-Inicie n8n configurando su dirección de túnel:
-code
-Bash
-set WEBHOOK_URL=https://tu-direccion-ngrok.app
-n8n start
 Desarrollado por: Juan Rojas
 Proyecto de IA - Nivel 1
 Fecha: Enero 2026
+
